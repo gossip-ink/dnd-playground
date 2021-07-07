@@ -2,7 +2,6 @@ import React from "react";
 import { PanelModel } from "../models";
 import { SharedLayoutProps, sharedLayoutPropTypes } from "./layout";
 import PropTypes from "prop-types";
-import color from "randomcolor";
 
 const Panel: React.FC<PanelProps> = ({ panel, x, y, width, height }) => {
   return (
@@ -13,7 +12,7 @@ const Panel: React.FC<PanelProps> = ({ panel, x, y, width, height }) => {
         left: `${x}px`,
         width: `${width}px`,
         height: `${height}px`,
-        background: color({ luminosity: "light" }),
+        background: panel.background,
       }}
     >
       <div
