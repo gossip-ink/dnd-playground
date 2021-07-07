@@ -1,0 +1,16 @@
+import React from "react";
+import PropTypes from "prop-types";
+
+const {{typeName}}: React.FC<{{typeName}}Props> = ({ children }) => {
+  return <div>{{typeName}}</div>;
+};
+
+{{typeName}}.displayName = "{{typeName}}";
+
+{{typeName}}.propTypes = {
+  children?: PropTypes.node,
+};
+
+export default {{typeName}};
+
+export type {{typeName}}Props = React.PropsWithChildren<{}>;
