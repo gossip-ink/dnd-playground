@@ -4,7 +4,7 @@ import { createPanel } from "../models";
 import * as operations from "../models/operations";
 import { Direction } from "../types";
 import { useWindowModelState } from "./context";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 
 type DropResult = { id: string; direction: Direction };
 
@@ -42,7 +42,9 @@ const Button: React.FC<ButtonProps> = ({ name }) => {
 
 Button.displayName = "Button";
 
-Button.propTypes = {};
+Button.propTypes = {
+  name: PropTypes.string.isRequired,
+};
 
 export default Button;
 
