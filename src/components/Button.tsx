@@ -2,6 +2,7 @@ import React from "react";
 import { useDrag } from "react-dnd";
 import { createPanel } from "../models";
 import * as operations from "../models/operations";
+import { Direction } from "../types";
 import { useWindowModelState } from "./context";
 // import PropTypes from "prop-types";
 

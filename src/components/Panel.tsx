@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import React, { useEffect, useRef, useState } from "react";
 import { useDrop } from "react-dnd";
 import { PanelModel } from "../models";
+import { Direction } from "../types";
 import { useEditorContext } from "./context";
 import { SharedLayoutProps, sharedLayoutPropTypes } from "./layout";
 

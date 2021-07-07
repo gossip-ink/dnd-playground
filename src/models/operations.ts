@@ -1,4 +1,5 @@
 import cloneDeep from "lodash/cloneDeep";
+import { Direction } from "../types";
 import { ColumnModel, createColumn } from "./column";
 import { Model } from "./model";
 import { PanelModel } from "./panel";
