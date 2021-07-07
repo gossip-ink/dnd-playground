@@ -1,9 +1,20 @@
+import PropTypes from "prop-types";
 import React from "react";
 import { PanelModel } from "../models";
+import { useSelectionControl } from "./context";
 import { SharedLayoutProps, sharedLayoutPropTypes } from "./layout";
-import PropTypes from "prop-types";
 
-const Panel: React.FC<PanelProps> = ({ panel, x, y, width, height }) => {
+const Panel: React.FC<PanelProps> = ({
+  panel,
+  absoluteX,
+  absoluteY,
+  x,
+  y,
+  width,
+  height,
+}) => {
+  const [selection, setSelection] = useSelectionControl();
+  const selected = selection.findIndex((box) => box.id === panel.id) >= 0;
   return (
     <div
       style={{
@@ -13,6 +24,22 @@ const Panel: React.FC<PanelProps> = ({ panel, x, y, width, height }) => {
         width: `${width}px`,
         height: `${height}px`,
         background: panel.background,
+      }}
+      onClick={(e) => {
+        if (selected) {
+          setSelection(
+            e.shiftKey ? selection.filter((box) => box.id !== panel.id) : []
+          );
+        } else {
+          const box = {
+            id: panel.id,
+            x: absoluteX,
+            y: absoluteY,
+            width,
+            height,
+          };
+          setSelection(e.shiftKey ? selection.concat(box) : [box]);
+        }
       }}
     >
       <div

@@ -1,6 +1,8 @@
 import PropTypes from "prop-types";
 
 export type SharedLayoutProps = {
+  absoluteX: number;
+  absoluteY: number;
   x: number;
   y: number;
   width: number;
@@ -16,17 +18,16 @@ export const sharedLayoutPropTypes = {
 
 export function splitRow(
   enclosingProps: SharedLayoutProps,
-  count: number,
-  relative = true
+  count: number
 ): SharedLayoutProps[] {
   const itemWidth = enclosingProps.width / count;
-  const x = relative ? 0 : enclosingProps.x;
-  const y = relative ? 0 : enclosingProps.y;
   let props: SharedLayoutProps[] = [];
   for (let i = 0; i < count; i++) {
     props.push({
-      x: x + i * itemWidth,
-      y: y,
+      absoluteX: enclosingProps.absoluteX + i * itemWidth,
+      absoluteY: enclosingProps.absoluteY,
+      x: i * itemWidth,
+      y: 0,
       width: itemWidth,
       height: enclosingProps.height,
     });
@@ -36,17 +37,16 @@ export function splitRow(
 
 export function splitColumn(
   enclosingProps: SharedLayoutProps,
-  count: number,
-  relative = true
+  count: number
 ): SharedLayoutProps[] {
   const itemHeight = enclosingProps.height / count;
-  const x = relative ? 0 : enclosingProps.x;
-  const y = relative ? 0 : enclosingProps.y;
   let props: SharedLayoutProps[] = [];
   for (let i = 0; i < count; i++) {
     props.push({
-      x: x,
-      y: y + i * itemHeight,
+      absoluteX: enclosingProps.absoluteX,
+      absoluteY: enclosingProps.absoluteY + i * itemHeight,
+      x: 0,
+      y: i * itemHeight,
       width: enclosingProps.width,
       height: itemHeight,
     });
