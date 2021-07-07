@@ -1,26 +1,16 @@
 import React from "react";
-import { createPanel, WindowModel } from "../models";
+import { createColumn, createPanel, createRow, createWindow } from "../models";
 import Button from "./Button";
 import Window from "./Window";
 
-const sample: WindowModel = {
-  type: "window",
-  root: {
-    type: "row",
-    children: [
-      createPanel("hello"),
-      {
-        type: "column",
-        children: [createPanel("foo"), createPanel("bar")],
-      },
-      createPanel("pop"),
-      {
-        type: "column",
-        children: [createPanel("uno"), createPanel("dos"), createPanel("tres")],
-      },
-    ],
-  },
-};
+const sample = createWindow(
+  createRow([
+    createPanel("hello"),
+    createColumn([createPanel("foo"), createPanel("bar")]),
+    createPanel("pop"),
+    createColumn([createPanel("uno"), createPanel("dos"), createPanel("tres")]),
+  ])
+);
 
 const App: React.FC<AppProps> = () => {
   return (

@@ -25,6 +25,7 @@ const common: Configuration = {
   },
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
+    fallback: { crypto: require.resolve("crypto-browserify") },
   },
   module: {
     rules: [
