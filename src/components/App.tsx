@@ -4,6 +4,7 @@ import Button from "./Button";
 import { EditorContext } from "./context";
 import { EditorState } from "./state";
 import Window from "./Window";
+import Tree from "./Tree";
 
 const initialValue: EditorState = {
   window: createWindow(
@@ -39,6 +40,10 @@ const App: React.FC<AppProps> = () => {
           <h2>Preview</h2>
           <Window window={editorState.window} width={800} height={600} />
         </main>
+        <section>
+          <h2>Tree</h2>
+          <Tree />
+        </section>
       </div>
     </EditorContext.Provider>
   );

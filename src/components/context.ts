@@ -1,4 +1,5 @@
 import { createContext, useContext, useCallback } from "react";
+import { WindowModel } from "../models";
 import { EditorState, SelectedBox } from "./state";
 
 export type EditorContextValue = {
@@ -27,4 +28,8 @@ export function useSelectionControl(): [
       [mutate]
     ),
   ];
+}
+
+export function useWindowModel(): WindowModel {
+  return useContext(EditorContext).state.window;
 }
