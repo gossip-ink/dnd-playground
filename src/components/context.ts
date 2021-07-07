@@ -11,6 +11,10 @@ export const EditorContext = createContext<EditorContextValue>(
   {} as EditorContextValue
 );
 
+export function useEditorContext(): EditorContextValue {
+  return useContext(EditorContext);
+}
+
 export function useSelection(): SelectedBox[] {
   return useContext(EditorContext).state.selection;
 }
@@ -25,11 +29,28 @@ export function useSelectionControl(): [
     useCallback(
       (selection: SelectedBox[]): void =>
         mutate({ window: state.window, selection }),
-      [mutate]
+      [state]
     ),
   ];
 }
 
 export function useWindowModel(): WindowModel {
   return useContext(EditorContext).state.window;
+}
+
+export function useWindowModelState(): [
+  WindowModel,
+  (window: WindowModel) => void
+] {
+  const { state, mutate } = useContext(EditorContext);
+  return [
+    state.window,
+    useCallback(
+      (window: WindowModel): void => (
+        console.log("setWindow", state.selection),
+        mutate({ selection: state.selection, window })
+      ),
+      [state]
+    ),
+  ];
 }
