@@ -110,6 +110,46 @@ export function addPanelAtBottomOf(
   return cloneDeep(window);
 }
 
+export function replaceWith(
+  window: WindowModel,
+  target: string,
+  replacement: Model
+): WindowModel {
+  const result = locateElement(window, target);
+  if (result === null) {
+    return window;
+  }
+  const [enclosing, model, index] = result;
+  if (enclosing.type === "window") {
+    return { ...enclosing, root: replacement };
+  } else {
+    enclosing.children.splice(index as number, 1, replacement);
+    // A little bit cumbersome but works for now.
+    return cloneDeep(window);
+  }
+}
+
+export function removePanel(window: WindowModel, target: string): WindowModel {
+  const result = locateElement(window, target);
+  if (result === null) {
+    return window;
+  }
+  const [enclosing, model, index] = result;
+  if (enclosing.type === "window") {
+    return { ...enclosing, root: null };
+  } else {
+    enclosing.children.splice(index as number, 1);
+    if (enclosing.children.length === 0) {
+      return removePanel(window, enclosing.id);
+    } else if (enclosing.children.length === 1) {
+      return replaceWith(window, enclosing.id, enclosing.children[0]);
+    } else {
+      // A little bit cumbersome but works for now.
+      return cloneDeep(window);
+    }
+  }
+}
+
 export type ElementLocation =
   | [WindowModel, Model, null]
   | [RowModel | ColumnModel, Model, number];

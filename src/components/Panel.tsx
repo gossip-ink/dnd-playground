@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import React, { useEffect, useRef, useState } from "react";
 import { useDrop } from "react-dnd";
 import { PanelModel } from "../models";
+import { removePanel } from "../models/operations";
 import { Direction } from "../types";
 import { useEditorContext } from "./context";
 import { SharedLayoutProps, sharedLayoutPropTypes } from "./layout";
@@ -21,7 +22,9 @@ const Panel: React.FC<PanelProps> = ({
     mutate,
   } = useEditorContext();
   const setSelection = (newSelection: typeof selection) =>
-    mutate({ window: window, selection: newSelection });
+    mutate({ window, selection: newSelection });
+  const setWindow = (newWindow: typeof window) =>
+    mutate({ selection, window: newWindow });
   const selected = selection.findIndex((box) => box.id === panel.id) >= 0;
   const [direction, setDirection] = useState<Direction | null>();
   const [collected, dropRef] = useDrop(
@@ -109,9 +112,23 @@ const Panel: React.FC<PanelProps> = ({
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
-        {panel.title.length === 0 ? "Untitled" : panel.title}
+        <div>{panel.title.length === 0 ? "Untitled" : panel.title}</div>
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            setWindow(removePanel(window, panel.id));
+            if (selected) {
+              setSelection(selection.filter((box) => box.id !== panel.id));
+            }
+          }}
+        >
+          Delete
+        </button>
       </div>
       {collected.dragging && direction ? (
         <div
