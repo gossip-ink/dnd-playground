@@ -8,8 +8,8 @@ const Row: React.FC<RowProps> = ({ row, ...props }) => {
   const itemProps = splitRow(props, row.children.length);
   return (
     <div
+      className="absolute"
       style={{
-        position: "absolute",
         top: `${props.y}px`,
         left: `${props.x}px`,
         width: `${props.width}px`,

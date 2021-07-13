@@ -6,6 +6,7 @@ import { removePanel } from "../models/operations";
 import { Direction } from "../types";
 import { useEditorContext } from "./context";
 import { SharedLayoutProps, sharedLayoutPropTypes } from "./layout";
+import classNames from "classnames";
 
 const Panel: React.FC<PanelProps> = ({
   panel,
@@ -81,8 +82,8 @@ const Panel: React.FC<PanelProps> = ({
   return (
     <div
       ref={(dropRef(ref), ref)}
+      className="absolute"
       style={{
-        position: "absolute",
         top: `${y}px`,
         left: `${x}px`,
         width: `${width}px`,
@@ -106,19 +107,10 @@ const Panel: React.FC<PanelProps> = ({
         }
       }}
     >
-      <div
-        style={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
         <div>{panel.title.length === 0 ? "Untitled" : panel.title}</div>
         <button
+          className="px-2 py-0.5 bg-gray-200 border border-gray-400 rounded"
           onClick={(e) => {
             e.stopPropagation();
             setWindow(removePanel(window, panel.id));
@@ -132,14 +124,13 @@ const Panel: React.FC<PanelProps> = ({
       </div>
       {collected.dragging && direction ? (
         <div
-          style={{
-            position: "absolute",
-            top: direction === "bottom" ? "50%" : 0,
-            right: direction === "left" ? "50%" : 0,
-            bottom: direction === "top" ? "50%" : 0,
-            left: direction === "right" ? "50%" : 0,
-            background: "rgba(0, 0, 0, 0.25)",
-          }}
+          className={classNames(
+            "absolute bg-gray-900 opacity-25",
+            direction === "bottom" ? "top-1/2" : "top-0",
+            direction === "left" ? "right-1/2" : "right-0",
+            direction === "top" ? "bottom-1/2" : "bottom-0",
+            direction === "right" ? "left-1/2" : "left-0"
+          )}
         />
       ) : null}
     </div>

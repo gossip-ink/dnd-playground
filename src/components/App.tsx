@@ -28,20 +28,20 @@ const App: React.FC<AppProps> = () => {
     <EditorContext.Provider
       value={{ state: editorState, mutate: setEditorState }}
     >
-      <div>
+      <div className="space-y-4">
         <header>
-          <h1>Gossip DnD Playground</h1>
+          <h1 className="font-bold text-3xl">Gossip DnD Playground</h1>
         </header>
         <section>
-          <h2>Toolbar</h2>
+          <h2 className="font-bold text-2xl">Toolbar</h2>
           <Button name="panel" />
         </section>
         <main>
-          <h2>Preview</h2>
+          <h2 className="font-bold text-2xl">Preview</h2>
           <Window window={editorState.window} width={800} height={600} />
         </main>
         <section>
-          <h2>Tree</h2>
+          <h2 className="font-bold text-2xl">Tree</h2>
           <Tree />
         </section>
       </div>

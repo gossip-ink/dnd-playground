@@ -12,8 +12,8 @@ const Column: React.FC<ColumnProps> = ({ column, ...props }) => {
   const itemProps = splitColumn(props, column.children.length);
   return (
     <div
+      className="absolute"
       style={{
-        position: "absolute",
         top: `${props.y}px`,
         left: `${props.x}px`,
         width: `${props.width}px`,

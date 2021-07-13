@@ -10,11 +10,8 @@ const Window: React.FC<WindowProps> = ({ window, width, height }) => {
   const selection = useSelection();
   return (
     <div
-      style={{
-        position: "relative",
-        width: `${width}px`,
-        height: `${height}px`,
-      }}
+      className="relative"
+      style={{ width: `${width}px`, height: `${height}px` }}
     >
       {window.root === null ? null : (
         <Dispatch
@@ -30,11 +27,7 @@ const Window: React.FC<WindowProps> = ({ window, width, height }) => {
       <svg
         width={width}
         height={height}
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-        }}
+        className="absolute top-0 left-0"
         pointerEvents="none"
       >
         {selection.map(({ id, x, y, width, height }) => (

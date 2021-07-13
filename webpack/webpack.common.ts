@@ -34,7 +34,7 @@ const common: Configuration = {
         loader: "ts-loader",
       },
       {
-        test: /\.pcss$/i,
+        test: /\.p(?:ost)?css$/i,
         use: [styleLoader, "css-loader", "postcss-loader"],
       },
       {

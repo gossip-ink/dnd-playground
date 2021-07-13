@@ -37,7 +37,14 @@ const Button: React.FC<ButtonProps> = ({ name }) => {
     }),
     [window, setWindow]
   );
-  return <button ref={ref}>{name}</button>;
+  return (
+    <button
+      ref={ref}
+      className="px-2 py-0.5 bg-gray-200 border border-gray-400 rounded"
+    >
+      {name}
+    </button>
+  );
 };
 
 Button.displayName = "Button";

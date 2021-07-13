@@ -34,7 +34,7 @@ const TreeNode: React.FC<TreeNodeProps> = ({ model }) => {
       return (
         <>
           <div>Column</div>
-          <ol>
+          <ol className="pl-8 list-disc">
             {model.children.map((child) => (
               <li key={child.id}>
                 <TreeNode model={child} />
@@ -46,12 +46,11 @@ const TreeNode: React.FC<TreeNodeProps> = ({ model }) => {
     case "panel":
       return (
         <span
-          style={{
-            fontWeight:
-              selection.findIndex((box) => box.id === model.id) >= 0
-                ? "bold"
-                : "normal",
-          }}
+          className={
+            selection.findIndex((box) => box.id === model.id) >= 0
+              ? "font-bold"
+              : "font-normal"
+          }
         >
           Panel: {model.title}
         </span>
@@ -60,7 +59,7 @@ const TreeNode: React.FC<TreeNodeProps> = ({ model }) => {
       return (
         <>
           <div>Row</div>
-          <ol>
+          <ol className="pl-8 list-disc">
             {model.children.map((child) => (
               <li key={child.id}>
                 <TreeNode model={child} />
