@@ -110,6 +110,24 @@ export function addPanelAtBottomOf(
   return cloneDeep(window);
 }
 
+export function changeTitle(
+  window: WindowModel,
+  target: string,
+  newTitle: string
+): WindowModel {
+  const result = locateElement(window, target);
+  if (result === null) {
+    return window;
+  }
+  const [, model] = result;
+  if (model.type === "panel") {
+    model.title = newTitle;
+    // A little bit cumbersome but works for now.
+    return cloneDeep(window);
+  }
+  return window;
+}
+
 export function replaceWith(
   window: WindowModel,
   target: string,

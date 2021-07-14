@@ -2,11 +2,12 @@ import PropTypes from "prop-types";
 import React, { useEffect, useRef, useState } from "react";
 import { useDrop } from "react-dnd";
 import { PanelModel } from "../models";
-import { removePanel } from "../models/operations";
+import { changeTitle, removePanel } from "../models/operations";
 import { Direction } from "../types";
 import { useEditorContext } from "./context";
 import { SharedLayoutProps, sharedLayoutPropTypes } from "./layout";
 import classNames from "classnames";
+import TextField from "./TextField";
 
 const Panel: React.FC<PanelProps> = ({
   panel,
@@ -108,7 +109,12 @@ const Panel: React.FC<PanelProps> = ({
       }}
     >
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
-        <div>{panel.title.length === 0 ? "Untitled" : panel.title}</div>
+        <TextField
+          value={panel.title.length === 0 ? "Untitled" : panel.title}
+          onChange={(newTitle) =>
+            setWindow(changeTitle(window, panel.id, newTitle))
+          }
+        />
         <button
           className="px-2 py-0.5 bg-gray-200 border border-gray-400 rounded"
           onClick={(e) => {
