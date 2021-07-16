@@ -16,6 +16,8 @@ const TextField: React.FC<TextFieldProps> = ({ value = "", onChange }) => {
         if (e.key === "Enter") {
           onChange?.(buffer);
           setIsEditing(false);
+        } else if (e.key === "Escape") {
+          setIsEditing(false);
         }
       }}
       onBlur={(e) => {
