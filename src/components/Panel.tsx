@@ -158,11 +158,23 @@ type Point = [x: number, y: number];
 
 function determineDirection(el: HTMLDivElement, p: Point): Direction {
   const rect = el.getBoundingClientRect();
-  const p1: Point = [rect.left, rect.top];
-  const p2: Point = [rect.right, rect.bottom];
-  const a = determineLineDirection(p, p1, p2);
-  const b = determineLineDirection(p, [p1[0], p2[1]], [p1[1], p2[0]]);
-  return a ? (b ? "left" : "bottom") : b ? "top" : "right";
+  const leadingDiagonal = determineLineDirection(
+    p,
+    [rect.left, rect.top],
+    [rect.right, rect.bottom]
+  );
+  const counterDiagonal = determineLineDirection(
+    p,
+    [rect.left, rect.bottom],
+    [rect.right, rect.top]
+  );
+  return leadingDiagonal
+    ? counterDiagonal
+      ? "left"
+      : "bottom"
+    : counterDiagonal
+    ? "top"
+    : "right";
 }
 
 function determineLineDirection(
@@ -170,5 +182,6 @@ function determineLineDirection(
   [x1, y1]: Point,
   [x2, y2]: Point
 ): boolean {
-  return (y - y2) / (y1 - y2) < (x - x2) / (x1 - x2);
+  // From https://stackoverflow.com/questions/1560492
+  return Math.sign((x2 - x1) * (y - y1) - (y2 - y1) * (x - x1)) > 0;
 }
